@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product of Even Elements</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+<body>
+
+    <main class="container">
+        <h2>Product of Even Elements</h2>
+        <hr>
+
+        <input type="text" id="numbers" placeholder="Enter numbers separated by commas">
+        <p id="error" style="color: red;"></p>
+        <button type="button" id="calculate">Calculate</button>
+        <button type="button" id="clear" class="secondary">Clear</button>
+        <p id="result"></p>
+
+        <script>
+            document.querySelector('#calculate').addEventListener('click', function(event) {
+                event.preventDefault();
+                let numbers = document.querySelector('#numbers').value.split(',').map(Number);
+                const error = document.querySelector('#error');
+                error.textContent = '';
+
+                for (let i = 0; i < numbers.length; i++) {
+                    if (!Number.isInteger(numbers[i]) || numbers[i] < 0) {
+                        error.textContent = 'Please enter only positive integers separated by commas.';
+                        return;
+                    }
+                }
+
+                let product = 1;
+                for (let i = 0; i < numbers.length; i++) {
+                    if (numbers[i] % 2 === 0) {
+                        product *= numbers[i];
+                    }
+                }
+                document.querySelector('#result').textContent = "The product of the even elements is: " + product;
+            });
+
+            document.querySelector('#clear').addEventListener('click', function() {
+                document.querySelector('#numbers').value = '';
+                document.querySelector('#error').textContent = '';
+                document.querySelector('#result').textContent = '';
+            });
+        </script>
+    </main>
+
+</body>
+</html>
